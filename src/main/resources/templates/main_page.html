@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <title>AT PB - Series</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="undefined" crossorigin="anonymous">
+</head>
+<body style="background-color: darkslategray">
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">Projeto de Bloco - Séries</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" th:href="@{/create}">Adicionar seriado</a>
+                <a class="nav-link">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="LogOut"/>
+                    </form>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div th:switch="${series}">
+    <h2 th:case="null">Não tem series ainda</h2>
+    <div style="display: flex;margin-left: 10px;
+    margin-right: 10px; margin-top: 10px" th:case="*">
+        <div th:each="serie : ${series}" class="card" style="width: 18rem;">
+            <img th:src="'data:image/jpg;base64,' + ${serie.image}" alt="fotito do produto" class="card-img-top">
+            <div class="card-body">
+                <h5 th:text="${serie.name}" class="card-title">Card title</h5>
+                <p th:text="${serie.description}" class="card-text">Some quick example text to build on the card title
+                    and make up the bulk of the card's content.</p>
+                <div style="display: flex; float: right">
+                    <a th:href="@{/edit/{id}(id=${serie.id})}" class="btn btn-primary" style="margin-right: 10px;">Editar</a>
+                    <a>
+                        <form th:action="@{/delete/{id}(id=${serie.id})}" method="post">
+                            <input type="submit" value="Deletar" class="btn btn-outline-danger"/>
+                        </form>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+        <!--                <table>-->
+        <!--                    <thead>-->
+        <!--                        <tr>-->
+        <!--                            <th>Nome</th>-->
+        <!--                            <th>Descrição</th>-->
+        <!--                            <th>Editar</th>-->
+        <!--                            <th>Deletar</th>-->
+        <!--                        </tr>-->
+        <!--                    </thead>-->
+        <!--                    <tbody>-->
+        <!--                        <tr th:each="serie : ${series}">-->
+        <!--                            <td th:text="${serie.name}"></td>-->
+        <!--                            <td th:text="${serie.description}"></td>-->
+        <!--                            <td><a th:href="@{/edit/{id}(id=${serie.id})}">Editar</a></td>-->
+        <!--                            <td>-->
+        <!--                                <form th:action="@{/delete/{id}(id=${serie.id})}" method="post">-->
+        <!--                                    <input type="submit" value="Deletar" class="btn btn-outline-primary"/>-->
+        <!--                                </form>-->
+        <!--                            </td>-->
+        <!--                        </tr>-->
+        <!--                    </tbody>-->
+        <!--                </table>-->
+    </div>
+    <!--    <form th:action="@{/logout}" method="post">-->
+    <!--        <input type="submit" value="LogOut"/>-->
+    <!--    </form>-->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="undefined"
+        crossorigin="anonymous"></script>
+</body>
+</html>
